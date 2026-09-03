@@ -1,0 +1,212 @@
+/**
+ * layout.css
+ * 页面整体布局：左侧边栏 + 主内容区。
+ */
+
+/* 根容器：桌面端为侧边栏 + 主内容两栏 */
+body {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* ---------- 左侧边栏 ---------- */
+.sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: 220px;
+    padding: 2rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: var(--bg-body);
+    border-right: 1px solid var(--border-light);
+    z-index: 100;
+    transition: background-color var(--transition-slow), border-color var(--transition-slow);
+}
+
+.sidebar__brand {
+    margin-bottom: 2rem;
+}
+
+.sidebar__title {
+    margin: 0;
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    white-space: nowrap; /* 保证「灯下诗词」四个字在同一行 */
+    color: var(--text-primary);
+}
+
+.sidebar__subtitle {
+    margin: 0.5rem 0 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    color: var(--text-muted);
+}
+
+.sidebar__menu {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    flex: 1;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.35rem 0;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    text-align: left;
+    position: relative;
+    transition: color var(--transition-fast);
+}
+
+.nav-item::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    border: 1px solid var(--border-color);
+    transition: background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.nav-item:hover {
+    color: var(--text-primary);
+}
+
+.nav-item.is-active {
+    color: var(--accent-color);
+}
+
+.nav-item.is-active::before {
+    background-color: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+.nav-item__index {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    opacity: 0.7;
+    min-width: 1.25rem;
+}
+
+.sidebar__bottom {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.5rem 0;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    transition: color var(--transition-fast);
+}
+
+.theme-toggle:hover {
+    color: var(--accent-color);
+}
+
+.theme-toggle__icon {
+    font-size: 1rem;
+}
+
+.sidebar__archive {
+    margin: 0.75rem 0 0;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+}
+
+/* ---------- 主内容区 ---------- */
+.main {
+    margin-left: 220px;
+    width: calc(100% - 220px);
+    min-height: 100vh;
+    padding: 0;
+}
+
+/* ---------- 诗词卡片网格 ---------- */
+.poem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.75rem;
+    padding: 2.5rem 3rem 4rem;
+    max-width: 1400px;
+}
+
+/* ---------- 空状态 ---------- */
+.empty-state {
+    padding: 4rem 3rem;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+/* ---------- 响应式：平板/移动端 ---------- */
+@media (max-width: 900px) {
+    .sidebar {
+        position: relative;
+        width: 100%;
+        padding: 1rem 1.25rem;
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+        flex-direction: row;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .sidebar__brand {
+        margin-bottom: 0;
+    }
+
+    .sidebar__menu {
+        flex-direction: row;
+        gap: 1.25rem;
+        flex: 1;
+        justify-content: flex-end;
+    }
+
+    .sidebar__bottom {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 0;
+        padding-top: 0;
+        border-top: none;
+    }
+
+    .main {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .poem-grid {
+        padding: 1.5rem 1.25rem 3rem;
+        gap: 1.25rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        flex-wrap: wrap;
+    }
+
+    .sidebar__menu {
+        width: 100%;
+        justify-content: space-between;
+        order: 3;
+    }
+
+    .poem-grid {
+        grid-template-columns: 1fr;
+        padding: 1rem;
+    }
+}

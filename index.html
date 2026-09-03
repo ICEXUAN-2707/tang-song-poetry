@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>灯下诗词-白灯客的唐诗宋词网站</title>
+    <meta name="description" content="唐诗宋词鉴赏网站，收录五十首经典诗词，支持收藏与双色主题切换。">
+    
+    <!-- 思源宋体：营造古籍排版气质 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/variables.css?v=20260903-2210">
+    <link rel="stylesheet" href="css/base.css?v=20260903-2210">
+    <link rel="stylesheet" href="css/layout.css?v=20260903-2210">
+    <link rel="stylesheet" href="css/components.css?v=20260903-2210">
+
+    <!-- 全局错误浮层：任何脚本错误都会显示在页面顶部，避免「白屏但不知原因」 -->
+    <script>
+        window.addEventListener("error", function (e) {
+            var box = document.getElementById("errorOverlay");
+            if (!box) {
+                box = document.createElement("div");
+                box.id = "errorOverlay";
+                box.style.cssText =
+                    "position:fixed;left:0;right:0;top:0;z-index:9999;" +
+                    "background:#7a1f1f;color:#fff;font:13px/1.6 system-ui,sans-serif;" +
+                    "padding:12px 18px;white-space:pre-wrap;box-shadow:0 2px 10px rgba(0,0,0,.3)";
+                document.body.appendChild(box);
+            }
+            box.textContent = "⚠ 脚本错误：" + (e.message || e.error) +
+                (e.filename ? "\n@ " + e.filename + ":" + e.lineno : "");
+        });
+    </script>
+</head>
+<body data-theme="light">
+    <a href="#main-content" class="skip-link">跳到主要内容</a>
+
+    <!-- 左侧导航栏 -->
+    <aside class="sidebar" id="sidebar" role="navigation" aria-label="主导航">
+        <div class="sidebar__brand">
+            <h1 class="sidebar__title">灯下诗词</h1>
+            <p class="sidebar__subtitle">白灯客</p>
+        </div>
+        
+        <nav class="sidebar__menu">
+            <button class="nav-item is-active" data-view="tang" aria-current="page">
+                <span class="nav-item__index">一</span>
+                <span class="nav-item__label">唐诗</span>
+            </button>
+            <button class="nav-item" data-view="song">
+                <span class="nav-item__index">二</span>
+                <span class="nav-item__label">宋词</span>
+            </button>
+            <button class="nav-item" data-view="favorites">
+                <span class="nav-item__index">三</span>
+                <span class="nav-item__label">收藏</span>
+            </button>
+        </nav>
+
+        <div class="sidebar__bottom">
+            <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+                <span class="theme-toggle__icon" aria-hidden="true">◐</span>
+                <span class="theme-toggle__text">模式切换</span>
+            </button>
+            <p class="sidebar__archive">ARCHIVE · <span id="favCount">0</span> / <span id="totalCount">50</span></p>
+        </div>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="main" id="main-content">
+        <!-- Hero 区域：会根据当前视图在 JS 中切换两种画风 -->
+        <header class="hero" id="hero"></header>
+
+        <!-- 诗词卡片网格 -->
+        <section class="poem-grid" id="poemGrid" aria-label="诗词列表"></section>
+
+        <!-- 空状态提示 -->
+        <div class="empty-state" id="emptyState" hidden>
+            <p>未找到相关诗词。</p>
+        </div>
+
+        <!-- 页脚：版权与相关信息 -->
+        <footer class="site-footer">
+            <div class="site-footer__inner">
+                <p class="site-footer__brand">灯下诗词 · 白灯客</p>
+                <p class="site-footer__info">收录唐诗宋词共五十首，仅供学习与鉴赏之用。</p>
+                <p class="site-footer__copy">© 2026 灯下诗词　内容版权归原作者及原出版方所有，本站点仅作非营利性整理与展示。</p>
+            </div>
+        </footer>
+    </main>
+
+    <!-- 诗词详情弹窗 -->
+    <dialog class="detail-modal" id="detailModal" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="detail-modal__content">
+            <button class="detail-modal__close" id="closeModal" aria-label="关闭">×</button>
+            <article class="poem-detail" id="poemDetail"></article>
+        </div>
+    </dialog>
+
+    <!-- 按顺序加载：数据 → 状态 → 视图 → 编排（经典脚本，可直接以 file:// 打开） -->
+    <!-- ?v= 为缓存戳，修改后强制浏览器重新拉取，避免旧版坏脚本被缓存 -->
+    <script src="js/data.js?v=20260903-2210"></script>
+    <script src="js/state.js?v=20260903-2210"></script>
+    <script src="js/ui.js?v=20260903-2210"></script>
+    <script src="js/app.js?v=20260903-2210"></script>
+</body>
+</html>

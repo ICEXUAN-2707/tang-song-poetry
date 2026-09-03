@@ -1,0 +1,70 @@
+/**
+ * base.css
+ * 基础重置、盒模型与文字排版。
+ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-serif);
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    line-height: 1.8;
+    transition: background-color var(--transition-slow), color var(--transition-slow);
+}
+
+/* 跳过链接：无障碍访问 */
+.skip-link {
+    position: absolute;
+    top: -100%;
+    left: 1rem;
+    z-index: 9999;
+    padding: 0.5rem 1rem;
+    background: var(--bg-panel);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    text-decoration: none;
+    transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+    top: 1rem;
+}
+
+/* 表单元素继承主题字体 */
+input,
+button {
+    font-family: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+/* 减少动画偏好支持 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    html {
+        scroll-behavior: auto;
+    }
+}
