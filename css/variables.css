@@ -1,0 +1,42 @@
+/**
+ * variables.css
+ * 全局 CSS 变量与主题定义。
+ * 视觉借自复刻项目 D:\tang-song-poetry（宣纸暖色 + 胭脂红 + Noto Serif SC），
+ * 此处仅保留教材/本站点需要的「宣纸（light）」一套配色。
+ */
+
+:root {
+    /* 字体 */
+    --font-serif: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "SimSun", serif;
+    --font-mono: "Courier New", monospace;
+
+    /* 动效 */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.35s ease;
+    --transition-slow: 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+
+    /* 宣纸主题：暖白、浅褐、朱红点缀 */
+    --bg-body: #f3efe6;
+    --bg-panel: #faf8f3;
+    --bg-card: rgba(255, 253, 248, 0.92);
+    --bg-hover: rgba(232, 224, 208, 0.6);
+    --bg-overlay: rgba(60, 55, 50, 0.55);
+
+    --text-primary: #2c2720;
+    --text-secondary: #6b6152;
+    --text-muted: #9b8f7d;
+    --text-inverse: #f3efe6;
+
+    --border-color: #d8d0c2;
+    --border-light: #e9e3d7;
+    --accent-color: #b5495b;      /* 胭脂红 */
+    --accent-soft: #c9a0a6;
+
+    --shadow-card: 0 10px 28px rgba(62, 55, 45, 0.1);
+    --shadow-float: 0 20px 60px rgba(62, 55, 45, 0.18);
+
+    --hero-gradient: linear-gradient(135deg, #f3efe6 0%, #e8e3d7 55%, #d4cdc0 100%);
+    --hero-mask: rgba(243, 239, 230, 0.35);
+
+    --maxw: 1180px;
+}

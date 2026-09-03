@@ -1,0 +1,218 @@
+/**
+ * layout.css
+ * 页面整体布局：顶部主导航 + 主内容区 + 页脚（多页面站点）。
+ * 与复刻项目的「左侧边栏 + 主内容」不同，本站点采用教材要求的三段式顶部导航。
+ */
+
+/* ---------- 顶部主导航 ---------- */
+.topnav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 2rem;
+    background: var(--bg-panel);
+    border-bottom: 1px solid var(--border-light);
+    transition: background-color var(--transition-slow), border-color var(--transition-slow);
+}
+
+.topnav__brand {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--text-primary);
+    text-decoration: none;
+}
+
+.topnav__brand:hover {
+    color: var(--accent-color);
+}
+
+.topnav__menu {
+    display: flex;
+    gap: 2rem;
+}
+
+.topnav__link {
+    position: relative;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.95rem;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0;
+    transition: color var(--transition-fast);
+}
+
+.topnav__link:hover,
+.topnav__link.is-active {
+    color: var(--accent-color);
+}
+
+.topnav__link.is-active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: 2px;
+    background: var(--accent-color);
+}
+
+/* ---------- 内容容器 ---------- */
+.container {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+main {
+    min-height: 60vh;
+}
+
+/* ---------- 面包屑 ---------- */
+.breadcrumb {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    padding: 1.1rem 0 0;
+}
+
+.breadcrumb a {
+    color: var(--text-secondary);
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    color: var(--accent-color);
+}
+
+.breadcrumb .sep {
+    margin: 0 0.5rem;
+    color: var(--border-color);
+}
+
+/* ---------- 二级导航（栏目内诗人/分类切换）---------- */
+.subnav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 1.5rem;
+}
+
+.subnav a {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    padding: 0.3rem 0.95rem;
+    border: 1px solid var(--border-color);
+    border-radius: 2px;
+    transition: color var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.subnav a:hover,
+.subnav a.is-active {
+    color: var(--text-inverse);
+    background: var(--accent-color);
+    border-color: var(--accent-color);
+}
+
+/* ---------- 页面简介 ---------- */
+.page-intro {
+    padding: 1.5rem 0 0.5rem;
+}
+
+.page-intro__title {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin: 0 0 0.5rem;
+    color: var(--text-primary);
+}
+
+.page-intro__desc {
+    color: var(--text-secondary);
+    max-width: 64ch;
+    line-height: 2;
+    margin: 0;
+}
+
+/* ---------- 卡片网格 ---------- */
+.poet-grid,
+.poem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.75rem;
+    padding: 2rem 0 3rem;
+}
+
+/* ---------- 页脚 ---------- */
+.site-footer {
+    margin-top: 3rem;
+    padding: 2rem;
+    border-top: 1px solid var(--border-light);
+    background: var(--bg-panel);
+    transition: background-color var(--transition-slow), border-color var(--transition-slow);
+}
+
+.site-footer__inner {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    text-align: center;
+    color: var(--text-muted);
+}
+
+.site-footer__brand {
+    font-size: 0.95rem;
+    letter-spacing: 0.18em;
+    color: var(--text-primary);
+    margin: 0 0 0.3rem;
+}
+
+.site-footer__info {
+    margin: 0 0 0.3rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+}
+
+.site-footer__copy {
+    margin: 0;
+    font-size: 0.7rem;
+    letter-spacing: 0.02em;
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 900px) {
+    .topnav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 0.8rem 1.25rem;
+    }
+    .topnav__menu {
+        gap: 1.25rem;
+        flex-wrap: wrap;
+    }
+    .container {
+        padding: 0 1.25rem;
+    }
+    .poet-grid,
+    .poem-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+    .poet-grid,
+    .poem-grid {
+        grid-template-columns: 1fr;
+    }
+    .poet-hero {
+        flex-direction: column;
+        text-align: center;
+    }
+}

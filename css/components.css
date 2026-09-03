@@ -1,0 +1,356 @@
+/**
+ * components.css
+ * 可复用组件：Hero、卷轴按钮、诗人卡片、作品卡片、面包屑、页脚等。
+ * 视觉借用复刻项目，但结构按教材多页面站点的需求重写。
+ */
+
+/* ---------- 首页 Hero ---------- */
+.hero {
+    position: relative;
+    min-height: 72vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: var(--bg-body);
+    transition: background-image var(--transition-slow), background-color var(--transition-slow);
+}
+
+/* Hero 底部轻微渐隐，让画面自然过渡到下方内容 */
+.hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+        to bottom,
+        rgba(243, 239, 230, 0.2) 0%,
+        rgba(243, 239, 230, 0.55) 68%,
+        var(--bg-body) 100%
+    );
+}
+
+.hero__inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 3rem 2rem;
+}
+
+.hero__chapter {
+    display: block;
+    writing-mode: vertical-rl;
+    text-orientation: upright;
+    letter-spacing: 0.3em;
+    color: var(--text-secondary);
+    margin: 0 auto 1.5rem;
+    font-size: 0.9rem;
+}
+
+.hero__title {
+    margin: 0;
+    font-size: clamp(3rem, 9vw, 6rem);
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    color: var(--text-primary);
+}
+
+.hero__desc {
+    max-width: 34rem;
+    margin: 1.5rem auto 2.5rem;
+    color: var(--text-secondary);
+    line-height: 2;
+}
+
+/* 卷轴按钮：纯 CSS（两端木轴 + 中间宣纸），不需要额外图片素材 */
+.scroll-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 180px;
+    padding: 1rem 2.5rem;
+    margin: 0.5rem 0.75rem;
+    font-size: 1.15rem;
+    letter-spacing: 0.35em;
+    color: var(--text-primary);
+    text-decoration: none;
+    background: linear-gradient(180deg, #fbf7ee, #efe7d6);
+    border-top: 3px solid #8a5a2b;
+    border-bottom: 3px solid #8a5a2b;
+    box-shadow: var(--shadow-card);
+    transition: transform var(--transition-fast), box-shadow var(--transition-normal), color var(--transition-fast);
+}
+
+.scroll-btn::before,
+.scroll-btn::after {
+    content: "";
+    position: absolute;
+    top: -3px;
+    bottom: -3px;
+    width: 14px;
+    background: linear-gradient(180deg, #a9712f, #6e4419);
+    border-radius: 3px;
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-btn::before { left: -14px; }
+.scroll-btn::after { right: -14px; }
+
+.scroll-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-float);
+    color: var(--accent-color);
+}
+
+.scroll-btn__text {
+    position: relative;
+    z-index: 1;
+}
+
+/* ---------- 诗人卡片（二级导航 / 栏目页网格）---------- */
+.poet-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 3px;
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.poet-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-float);
+}
+
+.poet-card__photo {
+    position: relative;
+    height: 260px;
+    overflow: hidden;
+    background: var(--hero-gradient);
+}
+
+.poet-card__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 18%;
+    transition: transform var(--transition-slow);
+}
+
+.poet-card:hover .poet-card__img {
+    transform: scale(1.04);
+}
+
+.poet-card__body {
+    padding: 1.25rem 1.25rem 1.5rem;
+}
+
+.poet-card__name {
+    margin: 0 0 0.2rem;
+    font-size: 1.35rem;
+    color: var(--text-primary);
+    letter-spacing: 0.1em;
+}
+
+.poet-card__dynasty {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.poet-card__bio {
+    margin: 0.75rem 0 0;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* ---------- 作品卡片（三级入口，置于二级页内）---------- */
+.poem-card {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 3px;
+    box-shadow: var(--shadow-card);
+    text-decoration: none;
+    transition: transform var(--transition-normal), box-shadow var(--transition-normal), background-color var(--transition-slow);
+}
+
+.poem-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-float);
+    background: var(--bg-hover);
+}
+
+.poem-card__title {
+    margin: 0 0 0.4rem;
+    font-size: 1.25rem;
+    color: var(--text-primary);
+    letter-spacing: 0.05em;
+}
+
+.poem-card__meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.9rem;
+}
+
+.poem-card__excerpt {
+    flex: 1;
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--text-primary);
+    opacity: 0.9;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: pre-line;
+}
+
+.poem-card__more {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    letter-spacing: 0.1em;
+}
+
+/* ---------- 诗人详情（二级页头部）---------- */
+.poet-hero {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    padding: 2rem 0;
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 2rem;
+}
+
+.poet-hero__img {
+    flex: 0 0 180px;
+    width: 180px;
+    height: 230px;
+    object-fit: cover;
+    object-position: center 22%;
+    border-radius: 6px;
+    border: 3px solid var(--accent-soft);
+    background: var(--bg-panel);
+    box-shadow: var(--shadow-card);
+}
+
+.poet-hero__name {
+    margin: 0;
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+    color: var(--text-primary);
+}
+
+.poet-hero__dynasty {
+    color: var(--text-muted);
+    margin: 0.25rem 0 0.75rem;
+}
+
+.poet-hero__bio {
+    color: var(--text-secondary);
+    line-height: 1.9;
+    max-width: 64ch;
+    margin: 0;
+}
+
+/* ---------- 作品详情（三级页）---------- */
+.poem-detail {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 1rem 0 3rem;
+}
+
+.poem-detail__header {
+    text-align: center;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-light);
+    margin-bottom: 2rem;
+}
+
+.poem-detail__title {
+    margin: 0;
+    font-size: clamp(1.8rem, 5vw, 2.6rem);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--text-primary);
+}
+
+.poem-detail__meta {
+    margin-top: 0.6rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+.poem-detail__text {
+    font-size: 1.1rem;
+    line-height: 2.4;
+    white-space: pre-line;
+    margin: 0 0 2rem;
+    text-align: center;
+    letter-spacing: 0.05em;
+    color: var(--text-primary);
+}
+
+.section-label {
+    display: inline-block;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    color: var(--accent-color);
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--accent-soft);
+}
+
+.poem-detail__notes p,
+.poem-detail__bg p {
+    color: var(--text-secondary);
+    line-height: 1.9;
+    margin: 0 0 0.75rem;
+}
+
+.poem-detail__nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 1.5rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+}
+
+.back-link:hover {
+    color: var(--accent-color);
+}
+
+/* ---------- 响应式组件调整 ---------- */
+@media (max-width: 900px) {
+    .hero {
+        min-height: 60vh;
+    }
+    .hero__inner {
+        padding: 2rem 1.25rem;
+    }
+}
