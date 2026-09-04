@@ -1,6 +1,7 @@
 # 非发布内容，不上传
 .workbuddy/
 generated-images/
+profile_images/
 thinking_structure
 README*
 readme*
